@@ -42,6 +42,69 @@ function concatenateGoodParts {
   rm -f list.txt;
 }
 
+# check requirements
+# check requirements
+if ! command -v awk &> /dev/null
+then
+    echo "awk could not be found"
+    echo "You must install it before run this script."
+    exit 1
+fi
+if ! command -v basename &> /dev/null
+then
+    echo "basename could not be found"
+    echo "You must install it before run this script."
+    exit 1
+fi
+if ! command -v bc &> /dev/null
+then
+    echo "bc could not be found"
+    echo "You must install it before run this script."
+    exit 1
+fi
+if ! command -v ffmpeg &> /dev/null
+then
+    echo "ffmpeg could not be found"
+    echo "You must install it before run this script."
+    exit 1
+fi
+if ! command -v grep &> /dev/null
+then
+    echo "grep could not be found"
+    echo "You must install it before run this script."
+    exit 1
+fi
+if ! command -v ls &> /dev/null
+then
+    echo "ls could not be found"
+    echo "You must install it before run this script."
+    exit 1
+fi
+if ! command -v realpath &> /dev/null
+then
+    echo "realpath could not be found"
+    echo "You must install it before run this script."
+    exit 1
+fi
+if ! command -v rm &> /dev/null
+then
+    echo "rm could not be found"
+    echo "You must install it before run this script."
+    exit 1
+fi
+if ! command -v sort &> /dev/null
+then
+    echo "sort could not be found"
+    echo "You must install it before run this script."
+    exit 1
+fi
+if ! command -v tr &> /dev/null
+then
+    echo "tr could not be found"
+    echo "You must install it before run this script."
+    exit 1
+fi
+
 #source="./source";
 #dest="./dest";
 #trashPic="./trash_pic/image1.jpg";
