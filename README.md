@@ -31,7 +31,7 @@ cd ./crop_trash_frames
  ./get_single_frame.sh "./source/Test.avi" 1000 "./image1000.jpg"
 ```
 
-Также был добавлен скрипт, конвертирующий результаты в mp4 (x264 + aac).
+Также был добавлен скрипт, конвертирующий результаты в mp4 (mpeg4 + aac).
 ```bash
  ./convert_any2mp4.sh
 ```

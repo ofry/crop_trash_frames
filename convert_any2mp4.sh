@@ -5,7 +5,7 @@
 function convertFile {
   # $1 - исходный файл
   # $2 - результирующий файл
-  ffmpeg -nostdin -i "$1" -c:v libx264 -c:a aac "$2";
+  ffmpeg -nostdin -i "$1" -c:v mpeg4 -c:a aac "$2";
 }
 
 if ! command -v basename &> /dev/null
