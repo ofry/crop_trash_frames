@@ -18,8 +18,8 @@ function clearDir {
 
 # инициализация переменных
 n=0;
-start_frame=0;
-end_frame=0;
+# start_frame=0;
+# end_frame=0;
 start=0.000000;
 end=0.000000;
 baseName=$(basename "$1");
@@ -37,8 +37,10 @@ while read -r line; do
 
   # непосредственно разделение
 
+  echo "Interval no. $((n+1)) of file $1 - from $start to $end";
+  # echo -nostdin -accurate_seek -i "$1" -ss "$start" -to "$end" "$(realpath "$2")"/part_"$n"".""$ext";
   ffmpeg -nostdin -accurate_seek -i "$1" -ss "$start" -to "$end"\
      "$(realpath "$2")"/part_"$n"".""$ext"  >/dev/null 2>&1;
-  echo "Processed interval no. $((n+1))";
+  echo "Processed interval no. $((n+1)) of file $1";
   ((++n));
 done
