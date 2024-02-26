@@ -20,7 +20,7 @@ function makeGoodParts {
 # $3 - путь к временной папке для хранения фрагментов
 
   for bad_frame in $(ls -1 "$(realpath "$2")" | sort -n -t _ -k 2) ; do
-    echo "$(realpath "$3")"/"$(basename "$1")"_"$bad_frame".log;
+    # echo "$(realpath "$3")"/"$(basename "$1")"_"$bad_frame".log;
     # строится список кадров и указывается процент совпадения с "плохим" кадром
     ffmpeg -nostdin -an -i "$1" -loop 1 -i "$(realpath "$2")"/"$bad_frame" \
           -filter_complex "blend=difference:shortest=1,blackframe=0" -f null - 2>&1 | \

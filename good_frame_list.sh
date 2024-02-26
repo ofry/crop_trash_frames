@@ -81,6 +81,5 @@ for FILE in $(ls -1 "$(realpath "$tempDir")" | sort -n -t _ -k 2) ; do
   mv -f "$tempResult" "$result";
   rm -f "$tempResult";
 done
-# выводим результат в стандартный поток вывода
 
 clearDir "$tempDir";
