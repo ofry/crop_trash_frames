@@ -76,6 +76,7 @@ for FILE in $(ls -1 "$(realpath "$tempDir")" | sort -n -t _ -k 2) ; do
     cp -f "$filepath" "$result";
     resultIsSet=true;
   fi
+  echo "Processing " "$filepath";
   grep -Fof "$result" "$filepath" >"$tempResult" 2>/dev/null;
   rm -f "$result";
   mv -f "$tempResult" "$result";
