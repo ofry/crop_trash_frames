@@ -13,4 +13,4 @@ then
 fi
 
 rm -rf "$3" >/dev/null 2>&1;
-ffmpeg -nostdin -i "$1" -vf "select=eq(n\,$(("$2"-1)))" -vframes 1 "$3" >/dev/null 2>&1;
+ffmpeg -nostdin -i "$1" -vf "select=eq(n\,$(("$2"-1)))" -vframes 1 "$3";
