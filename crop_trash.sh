@@ -18,6 +18,7 @@ function makeGoodParts {
 # $1 - путь к исходному видеофайлу
 # $2 - путь к папке с "плохими" кадрами
 # $3 - путь к временной папке для хранения фрагментов
+# $4 - битрейт видео
 
   for bad_frame in $(ls -1 "$(realpath "$2")" | sort -n -t _ -k 2) ; do
     # echo "$(realpath "$3")"/"$(basename "$1")"_"$bad_frame".log;
@@ -36,14 +37,16 @@ function makeGoodParts {
  cat "./result_$(basename "$1").log" | \
 # преобразуем список кадров в интервалы для последующей обрезки
        ./intervals2list.sh | \
-       ./trim2parts_by_intervals.sh "$1" "$3";
+       ./trim2parts_by_intervals.sh "$1" "$3" "$4";
 }
 function concatenateGoodParts {
   # данная функция соединяет все фрагменты в 1 файл
   # $1 - путь к временной папке для хранения фрагментов
   # $2 - путь к результирующему видеофайлу
+  # $3 - битрейт видео
+
   (for FILE in $(ls -1 "$(realpath "$tempDir")" | sort -n -t _ -k 2) ; do echo "file '$(realpath "$tempDir")/$FILE'"; done) >list.txt ;
-  ffmpeg -f concat -safe 0 -i list.txt "$2"
+  ffmpeg -f concat -safe 0 -i list.txt -b:v "$3" "$2"
   rm -f list.txt;
 }
 
@@ -116,19 +119,20 @@ source="./source";
 dest="./dest";
 trashDir=$1;
 tempDir="./temp";
+videoRate="2560k";
 for FILE in $(ls -1 "$(realpath "$source")" | sort -n -t _ -k 2) ; do
   filename="$(realpath "$source")/$FILE";
   destFilename="$(realpath "$dest")/$FILE";
   echo "Cleaning $filename";
-  makeGoodParts "$filename" "$trashDir" "$tempDir";
+  makeGoodParts "$filename" "$trashDir" "$tempDir" "$videoRate";
   echo "Split $filename into parts has finished.";
-  concatenateGoodParts "$tempDir" "$destFilename";
+  concatenateGoodParts "$tempDir" "$destFilename" "$videoRate";
   echo "Successfully filtered $filename into $destFilename";
   echo;
   clearDir "$tempDir";
 done
 echo "Start final converting to mp4 format.";
-./convert_any2mp4.sh;
+./convert_any2mp4.sh "$videoRate";
 echo "All done!";
 echo;
 

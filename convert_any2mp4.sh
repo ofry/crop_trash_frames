@@ -1,11 +1,13 @@
 #!/bin/bash
 # данный скрипт конвертирует все видеофайлы в формат mp4
 # с видеокодеком libx264 и аудиокодеком aac
+# $1 - битрейт видео
 
 function convertFile {
   # $1 - исходный файл
   # $2 - результирующий файл
-  ffmpeg -nostdin -i "$1" -c:v mpeg4 -c:a aac "$2";
+  # $3 - битрейт видео
+  ffmpeg -nostdin -i "$1" -c:v mpeg4 -c:a aac -b:v "$3" "$2";
 }
 
 if ! command -v basename &> /dev/null
@@ -41,6 +43,7 @@ fi
 
 source="./dest";
 dest="./dest_mp4";
+videoRate="$1";
 
 for FILE in $(ls -1 "$(realpath "$source")" | sort -n -t _ -k 2) ; do
   filename="$(realpath "$source")/$FILE";
@@ -48,7 +51,7 @@ for FILE in $(ls -1 "$(realpath "$source")" | sort -n -t _ -k 2) ; do
   ext=".mp4";
   destFilename="$(realpath "$dest")/$baseName$ext";
   echo "Converting $filename";
-  convertFile "$filename" "$destFilename";
+  convertFile "$filename" "$destFilename" "$videoRate";
   echo "Successfully filtered $filename into $destFilename";
   echo;
 done
