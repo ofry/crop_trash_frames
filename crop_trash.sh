@@ -121,6 +121,7 @@ trashDir=$1;
 tempDir="./temp";
 videoRate="2560k";
 for FILE in $(ls -1 "$(realpath "$source")" | sort -n -t _ -k 2) ; do
+  clearDir "$tempDir";
   filename="$(realpath "$source")/$FILE";
   destFilename="$(realpath "$dest")/$FILE";
   echo "Cleaning $filename";
